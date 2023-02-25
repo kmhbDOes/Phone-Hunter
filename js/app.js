@@ -1,18 +1,18 @@
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText, dataLimit) => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     const res = await fetch(url);
     const data = await res.json();
-    displayPhones(data.data);
+    displayPhones(data.data, dataLimit);
 };
 
-const displayPhones = (phones) => {
+const displayPhones = (phones, dataLimit) => {
     const phoneContainer = document.getElementById("phones-container");
     phoneContainer.textContent = '';
 
     // Display 15 phones only
-    if (phones.length > 10) {
+    const showAll = document.getElementById('show-all');
+    if (dataLimit && phones.length > 10) {
         phones = phones.slice(0, 10);
-        const showAll = document.getElementById('show-all');
         showAll.classList.remove('hidden');
     }
     else {
@@ -51,13 +51,17 @@ const displayPhones = (phones) => {
     toggleSpinner(false)
 };
 
-const btnSearch = () => {
-    // Start Spinner
+const processSearch = (dataLimit) => {
     toggleSpinner(true);
     document.getElementById('btn-search').addEventListener
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
-    loadPhone(searchText);
+    loadPhone(searchText, dataLimit);
+}
+
+const btnSearch = () => {
+    // Start Spinner
+    processSearch(10);
 }
 
 const toggleSpinner = isLoading => {
@@ -72,4 +76,8 @@ const toggleSpinner = isLoading => {
     }
 }
 
-// loadPhone();
+// worst way
+
+document.getElementById('btn-showall').addEventListener('click', function () {
+    processSearch();
+})
