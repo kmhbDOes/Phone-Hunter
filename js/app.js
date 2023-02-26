@@ -41,7 +41,7 @@ const displayPhones = (phones, dataLimit) => {
                             <div class="badge badge-secondary">NEW</div>
                         </h2>
                         <p>If a dog chews shoes whose shoes does he choose?</p>
-                         <button onclick ="loadPhoneDetails('${phone.slug}')" class="btn btn-primary w-64 mx-auto">Show Details</button>
+                         <button onclick ="loadPhoneDetails('${phone.slug}');  document.getElementById('my-modal').checked = true; " class="btn btn-primary w-64 mx-auto"  data-target="my-modal" >Show Details</button>
                         <div class="card-actions justify-end">
                         </div>
                     </div>
@@ -67,7 +67,6 @@ const btnSearch = () => {
 
 // Search Input field enter key handler
 document.getElementById('search-field').addEventListener('keypress', function (e) {
-    console.log(e.key);
     if (e.key === 'Enter') {
         // code for enter
         processSearch(10);
@@ -96,5 +95,19 @@ const loadPhoneDetails = async id => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.data);
+    displayPhoneDetails(data.data);
 }
+
+const displayPhoneDetails = phone => {
+    console.log(phone);
+    const modalTitle = document.getElementById('my-id');
+    modalTitle.innerHTML = phone.name;
+    const phoneDetails = document.getElementById('phone-details');
+    phoneDetails.innerHTML = `
+    <p>${phone.releaseDate ? phone.releaseDate : "No Release Date Found"}</p>
+    <p>Storage: ${phone.mainFeatures ? phone.mainFeatures.storage : 'No storage information'}</p>
+    <p> Others: ${phone.others ? phone.others.Bluetooth : 'No bluetooth'}</p >
+            `
+}
+
+loadPhone('phone');

@@ -40,6 +40,8 @@
                 </div>
             </div>
 
+            <!-- btn showall -->
+
             <div id="show-all" class="text-center mt-5 hidden">
                 <button id="btn-showall" class="bg-purple-500 rounded-xl w-36 h-10">Show More</button>
             </div>
@@ -62,7 +64,28 @@
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>
+        </section>
 
+
+        <!-- Modal Content -->
+
+
+        <section class="text-center mt-4">
+            <!-- The button to open modal -->
+            <label for="my-modal" class="btn">open modal</label>
+
+
+            <!-- Put this part before body tag -->
+            <input type="checkbox" id="my-modal" class="modal-toggle" data-target="my-modal" />
+            <div class="modal">
+                <div class="modal-box">
+                    <h3 id="my-id" class="font-bold text-lg"></h3>
+                    <div id="phone-details" class="font-semibold text-lg"></div>
+                    <div class="modal-action">
+                        <label for="my-modal" class="btn">OK</label>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
